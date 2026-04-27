@@ -12,6 +12,7 @@ import {
   YAxis,
   Cell,
 } from "recharts";
+import type { NameType, ValueType } from "recharts/types/component/DefaultTooltipContent";
 import { localizeEmotion, localizeProblem, localizeTag } from "@/lib/localize";
 import { NavBar } from "@/components/NavBar";
 import { getEntries } from "@/lib/storage";
@@ -127,10 +128,12 @@ export default function StatisticsPage() {
                       ))}
                     </Pie>
                     <Tooltip
-                      formatter={(value: number, _name: string, payload: { payload: DonutDatum }) => [
-                        `${value}%`,
-                        payload.payload.label,
-                      ]}
+                      formatter={(value: ValueType | undefined, _name: NameType, payload) => {
+                        const numericValue = typeof value === "number" ? value : Number(value ?? 0);
+                        const safeValue = Number.isFinite(numericValue) ? numericValue : 0;
+                        const label = (payload?.payload as DonutDatum | undefined)?.label ?? "";
+                        return [`${safeValue}%`, label];
+                      }}
                       contentStyle={{ borderRadius: "12px", border: "1px solid #eadfcf", background: "#fffdf8" }}
                       wrapperStyle={{ zIndex: 20 }}
                     />
@@ -272,10 +275,13 @@ function DonutStatsCard({
                 ))}
               </Pie>
               <Tooltip
-                formatter={(value: number, _name: string, payload: { payload: DonutDatum }) => [
-                  `${value} (${payload.payload.percentage}%)`,
-                  payload.payload.label,
-                ]}
+                formatter={(value: ValueType | undefined, _name: NameType, payload) => {
+                  const numericValue = typeof value === "number" ? value : Number(value ?? 0);
+                  const safeValue = Number.isFinite(numericValue) ? numericValue : 0;
+                  const label = (payload?.payload as DonutDatum | undefined)?.label ?? "";
+                  const percentage = (payload?.payload as DonutDatum | undefined)?.percentage ?? 0;
+                  return [`${safeValue} (${percentage}%)`, label];
+                }}
                 contentStyle={{ borderRadius: "12px", border: "1px solid #eadfcf", background: "#fffdf8" }}
                 wrapperStyle={{ zIndex: 20 }}
               />
