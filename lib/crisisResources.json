@@ -1,0 +1,16 @@
+{
+  "ru": [
+    {
+      "name": "Детский телефон доверия",
+      "contact": "8-800-2000-122",
+      "url": "https://telefon-doveria.ru/"
+    }
+  ],
+  "en": [
+    {
+      "name": "988 Suicide & Crisis Lifeline",
+      "contact": "Call or text 988",
+      "url": "https://988lifeline.org/"
+    }
+  ]
+}

@@ -110,6 +110,7 @@ export async function POST(request: NextRequest) {
       ? body.personality
       : "supportive";
   const rawApiKey = process.env.OPENAI_API_KEY ?? "";
+  const model = (process.env.OPENAI_MODEL ?? "codex-mini-latest").trim();
   const apiKey = rawApiKey.trim().replace(/^['"]|['"]$/g, "");
   const chatHistory = Array.isArray(body.chatHistory) ? body.chatHistory : Array.isArray(body.messages) ? body.messages : [];
   const recentDiaryEntries = Array.isArray(body.recentDiaryEntries)
@@ -166,7 +167,7 @@ ${formatUserPreferencesBlock(body.userPreferences)}`;
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "gpt-4.1-mini",
+        model,
         temperature: 0.8,
         messages,
       }),

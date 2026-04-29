@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { DiaryEntry } from "@/lib/types";
 import { getLocalizedEntry } from "@/lib/localize";
 import { useLanguage } from "@/lib/useLanguage";
+import { Tag } from "@/components/ui/Tag";
 
 export function EntryList({
   entries,
@@ -11,7 +12,7 @@ export function EntryList({
   onDelete,
 }: {
   entries: DiaryEntry[];
-  onEdit: (entry: DiaryEntry) => void;
+  onEdit?: (entry: DiaryEntry) => void;
   onDelete: (entryId: string) => void;
 }) {
   const { t, language } = useLanguage();
@@ -55,16 +56,18 @@ export function EntryList({
               openMenuId === entry.id ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
             }`}
           >
-            <button
-              type="button"
-              onClick={() => {
-                onEdit(entry);
-                setOpenMenuId(null);
-              }}
-              className="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 transition hover:bg-[#efe1ca]"
-            >
-              {t.edit}
-            </button>
+            {onEdit ? (
+              <button
+                type="button"
+                onClick={() => {
+                  onEdit(entry);
+                  setOpenMenuId(null);
+                }}
+                className="w-full rounded-lg px-3 py-2 text-left text-sm text-slate-700 transition hover:bg-[#efe1ca]"
+              >
+                {t.edit}
+              </button>
+            ) : null}
             <button
               type="button"
               onClick={() => {
@@ -78,17 +81,23 @@ export function EntryList({
           </div>
 
           <p className="text-xs text-slate-500">
-            {new Date(entry.date).toLocaleString()}
+            {new Date(entry.date).toLocaleString(language === "ru" ? "ru-RU" : "en-US")}
             {entry.isEdited && <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-medium text-amber-700">{t.edited}</span>}
           </p>
           <p className="mt-2 text-sm text-slate-700">{entry.text}</p>
           <div className="mt-2 flex flex-wrap gap-2 text-xs">
-            <span className="rounded-full bg-blue-100 px-2 py-1 text-blue-800">{t.moodPrefix}: {localized.moodLabel}</span>
-            {localized.tagLabels.map((tag, index) => (
-              <span key={`${entry.id}-${entry.tags[index] ?? tag}-${index}`} className="rounded-full bg-purple-100 px-2 py-1 text-purple-800">
-                {tag || entry.tags[index]}
-              </span>
-            ))}
+            <Tag tone="primary-soft">{t.moodPrefix}: {localized.moodLabel}</Tag>
+            {localized.tagLabels
+              .map((tag, index) => ({ tag, index }))
+              .filter((item) => (entry.tagConfidences?.[item.index] ?? 1) >= 0.6)
+              .map((item) => (
+                <Tag
+                  key={`${entry.id}-${entry.tags[item.index] ?? item.tag}-${item.index}`}
+                  tone="primary-soft"
+                >
+                  {item.tag || entry.tags[item.index]}
+                </Tag>
+              ))}
           </div>
           </article>
         );

@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI-Powered Mood Diary",
-  description: "Private local-first diary with AI insights",
+  title: "MindDiary",
+  description: "Local-first mood diary with automatic summaries",
 };
 
 export default function RootLayout({

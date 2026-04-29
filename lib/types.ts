@@ -11,10 +11,13 @@ export interface AIAnalysis {
   advice: string;
   tags: string[];
   tagLabels?: string[];
+  tagConfidences?: number[];
 }
 
 export interface DiaryEntry extends AIAnalysis {
   id: string;
+  version?: number;
+  safetySuppressed?: boolean;
   date: string;
   text: string;
   energy: number;

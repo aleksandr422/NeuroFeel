@@ -95,9 +95,7 @@ export default function ChatPage() {
       setError(
         err instanceof Error
           ? err.message
-          : language === "ru"
-            ? "Не удалось получить ответ от AI. Попробуй еще раз."
-            : "Could not get a response from AI. Please try again.",
+          : t.chatResponseError,
       );
     } finally {
       setIsLoading(false);

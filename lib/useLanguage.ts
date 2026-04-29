@@ -8,7 +8,7 @@ const LANGUAGE_STORAGE_KEY = "app-language";
 type LanguageContextValue = {
   language: Language;
   setLanguage: (language: Language) => void;
-  t: typeof translations.en;
+  t: (typeof translations)[Language];
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);

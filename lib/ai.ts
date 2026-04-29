@@ -178,6 +178,7 @@ function buildFallbackAnalysis(manualMood: Mood, language: Language, userPrefere
     advice: personalized,
     tags: ["reflection", "daily-life"],
     tagLabels: [t.tagsMap.reflection, t.tagsMap["daily-life"]],
+    tagConfidences: [1, 1],
   };
 }
 

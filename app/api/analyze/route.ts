@@ -14,7 +14,8 @@ Analyze user's diary text and return strict JSON:
   "problemLabel": "...",
   "message": "...",
   "tags": ["..."],
-  "tagLabels": ["..."]
+  "tagLabels": ["..."],
+  "tagConfidences": [0.0]
 }
 Safety rules:
 - no diagnosis
@@ -219,6 +220,11 @@ function normalizeResponse(raw: unknown, manualMood: Mood, language: Language, e
     advice: typeof data.advice === "string" && data.advice.trim() ? data.advice : message,
     tags,
     tagLabels: tags.map((tag, index) => tagLabels[index] ?? t.tagsMap[tag as keyof typeof t.tagsMap] ?? tag),
+    tagConfidences: Array.isArray(data.tagConfidences)
+      ? data.tagConfidences
+          .map((value) => (typeof value === "number" ? value : 0))
+          .map((value) => Math.min(1, Math.max(0, value)))
+      : tags.map(() => 1),
   };
 }
 
@@ -254,6 +260,7 @@ export async function POST(request: NextRequest) {
   };
   const safeLanguage: Language = language === "ru" ? "ru" : "en";
   const apiKey = process.env.OPENAI_API_KEY;
+  const model = (process.env.OPENAI_MODEL ?? "codex-mini-latest").trim();
 
   if (!apiKey) {
     return NextResponse.json(safeFallback(manualMood, safeLanguage, userPreferences));
@@ -267,7 +274,7 @@ export async function POST(request: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "gpt-4.1-mini",
+        model,
         input: [
           { role: "system", content: SYSTEM_PROMPT },
           {
