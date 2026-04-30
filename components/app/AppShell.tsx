@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useRef, useState } from "react";
-import { BookOpen, ChartLine, Home, Menu, X } from "lucide-react";
+import { BookOpen, ChartLine, Home, Menu, Plus, Settings, ShieldCheck, X } from "lucide-react";
 import { DiaryInput } from "@/components/DiaryInput";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Modal } from "@/components/Modal";
@@ -65,13 +65,18 @@ export function AppShell({ children }: { children: ReactNode }) {
     { href: "/app", label: t.todayNav, icon: Home, active: pathname === "/app" },
     { href: "/app/journal", label: t.diaryNav, icon: BookOpen, active: pathname.startsWith("/app/journal") },
     { href: "/app/analytics", label: t.analyticsNav, icon: ChartLine, active: pathname.startsWith("/app/analytics") },
+    { href: "/app/settings", label: t.settings, icon: Settings, active: pathname.startsWith("/app/settings") },
   ];
+  const dashboardView = pathname === "/app";
 
   return (
     <div className="min-h-screen bg-[var(--color-bg)]">
       <aside className="fixed inset-y-0 left-0 z-40 hidden border-r border-[var(--color-border)] bg-white px-4 py-4 lg:flex lg:w-[200px] xl:w-60">
         <nav aria-label="Главная навигация" className="flex h-full flex-col gap-3">
-          <Link href="/app" className="px-2 text-lg font-bold text-[var(--color-text)]">MindDiary</Link>
+          <div className="flex items-center gap-2 px-2">
+            <Menu size={16} className="text-[var(--color-text-muted)]" aria-hidden />
+            <Link href="/app" className="text-[var(--fs-lg)] font-[var(--fw-semibold)] text-[var(--color-text)]">MindDiary</Link>
+          </div>
           <div className="mt-3 space-y-2">
             {navItems.map((item) => (
               <NavPill key={item.href} href={item.href} active={item.active} className="w-full min-w-0 justify-start gap-2 px-4">
@@ -85,6 +90,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <p className="text-sm font-semibold">Это не терапия</p>
             <p className="mt-2 text-xs text-[var(--color-text-muted)]">MindDiary помогает замечать паттерны. Не заменяет специалиста.</p>
             <Link href="/about/scope" className="mt-2 inline-block text-xs text-[var(--color-primary-600)] underline">Подробнее</Link>
+            <ShieldCheck size={20} className="mt-2 text-[var(--color-primary-500)]" aria-hidden />
           </Card>
         </nav>
       </aside>
@@ -113,22 +119,26 @@ export function AppShell({ children }: { children: ReactNode }) {
             <p className="text-sm font-semibold">Это не терапия</p>
             <p className="mt-2 text-xs text-[var(--color-text-muted)]">MindDiary помогает замечать паттерны. Не заменяет специалиста.</p>
             <Link href="/about/scope" className="mt-2 inline-block text-xs text-[var(--color-primary-600)] underline">Подробнее</Link>
+            <ShieldCheck size={20} className="mt-2 text-[var(--color-primary-500)]" aria-hidden />
           </Card>
         </nav>
       </aside>
       <div className="transition-opacity duration-150">
-        <header className="sticky top-0 z-30 border-b border-[var(--color-border)] bg-white/90 backdrop-blur">
-          <div className="flex items-center gap-3 px-4 py-3 lg:pl-[216px] lg:pr-6 xl:pl-[272px]">
+        <header className={`z-30 ${dashboardView ? "" : "sticky top-0 border-b border-[var(--color-border)] bg-white/90 backdrop-blur"}`}>
+          <div className={`flex items-center gap-3 px-4 py-3 lg:pl-[216px] lg:pr-6 xl:pl-[272px] ${dashboardView ? "pt-6" : ""}`}>
             <Button variant="ghost" iconOnly size="sm" className="lg:hidden" onClick={() => setDrawerOpen(true)} aria-label="Открыть меню">
               <Menu size={17} />
             </Button>
-            <div className="ml-auto flex items-center gap-2">
+            <div className="ml-auto flex items-center gap-3">
               <LanguageSwitcher />
-              <Button variant="primary" onClick={() => setWriteOpen(true)} className="hidden sm:inline-flex">{writeLabel}</Button>
+              <Button variant="primary" onClick={() => setWriteOpen(true)} className="hidden items-center gap-2 sm:inline-flex"><Plus size={16} />{writeLabel}</Button>
               <div className="relative">
-                <Button variant="ghost" iconOnly size="sm" onClick={() => setMenuOpen((v) => !v)} aria-label={t.openUserMenu}>☻</Button>
+                <Button variant="ghost" iconOnly size="sm" onClick={() => setMenuOpen((v) => !v)} aria-label={t.openUserMenu}>
+                  <span className="inline-block h-2.5 w-2.5 rounded-full bg-[var(--color-text)]" />
+                </Button>
                 {menuOpen ? (
                   <div className="absolute right-0 top-12 z-50 w-56 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-white p-1 shadow-[var(--shadow-card-hover)]">
+                    <Link href="/app/settings" className="block rounded-[var(--radius-sm)] px-3 py-2 text-sm text-[var(--color-text)] hover:bg-[var(--color-primary-100)]">Профиль</Link>
                     <Link href="/app/settings" className="block rounded-[var(--radius-sm)] px-3 py-2 text-sm text-[var(--color-text)] hover:bg-[var(--color-primary-100)]">{t.settings}</Link>
                     <button
                       type="button"
