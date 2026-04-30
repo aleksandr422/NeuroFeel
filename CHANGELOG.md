@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-04-30 (Dashboard mockup adaptation)
+
+- Replaced `/app` dashboard composition with a high-fidelity mockup adaptation: hero block, 4-card KPI row, and chart + observation main row while preserving Prompt 5 honesty language in `app/app/page.tsx`.
+- Updated app shell navigation to include sidebar `Настройки`, decorative desktop hamburger/brand row, header-aligned right controls, and plus-icon primary action in `components/app/AppShell.tsx`.
+- Added temporary designer-replaceable illustration placeholders (`src/assets/*.svg`, mirrored under `public/assets/*.svg`) with explicit TODO markers.
+- Added implementation notes for the redesigned blocks/data sources/empty states in `docs/dashboard-redesign.md`.
+
 ## 2026-04-30 (Dashboard regression fix pass)
 
 - Bug 1 (double hamburger): removed duplicate menu trigger and kept a single drawer trigger below desktop breakpoints in `components/app/AppShell.tsx`.
