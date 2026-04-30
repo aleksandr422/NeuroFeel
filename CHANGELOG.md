@@ -1,5 +1,25 @@
 # Changelog
 
+## 2026-04-30 (Dashboard regression fix pass)
+
+- Bug 1 (double hamburger): removed duplicate menu trigger and kept a single drawer trigger below desktop breakpoints in `components/app/AppShell.tsx`.
+- Bug 2 (sidebar collapse breakpoint): removed automatic icon-rail collapse; sidebar is expanded at `>=1024` (200px at `1024-1279`, 240px at `>=1280`) and drawer-only below `1024` in `components/app/AppShell.tsx`.
+- Bug 3 (overlapping/clipped cards): replaced brittle section-level media overrides with stable flow grid + `min-w-0` children, removed layout hacks, and kept card heights auto in `app/app/page.tsx`.
+- Bug 4 (calendar plain text): rebuilt calendar body as explicit 7-column grid with weekday header row (`Пн...Вс`) and button cells in `app/app/page.tsx`.
+- Bug 5 (broken/untranslated segmented control): added localized segmented control (`7/30/90 дней`) via `components/ui/SegmentedControl.tsx`, wired i18n keys in `lib/i18n.ts`, and replaced hardcoded English labels in `app/app/page.tsx`.
+- Bug 6 (clipped Y-axis labels): added chart margins and explicit Y-axis width for mood/energy charts in `app/app/page.tsx`.
+- Bug 7 (floating avatar return): kept avatar action only in header dropdown and strengthened anti-regression test scope in `lib/layout-safety.test.ts`.
+- Bug 8 (garbage-input regression): ensured gibberish entries strip AI classification during migration and render neutral marker/tags hidden in `lib/migrations.ts`, `components/EntryList.tsx`, `lib/dashboard.ts`, `app/app/page.tsx`, and `lib/validation.test.ts`.
+- Added visual smoke capture artifacts and runner for widths 1440/1280/1024/900/768/414 in `tests/visual/dashboard-smoke.mjs`, `tests/visual/storage-state.json`, and generated `tests/visual/dashboard-*.png` via `package.json` script `test:visual`.
+
+## 2026-04-30
+
+- Reworked `/app` dashboard layout to a dense HR-style information architecture: sidebar navigation, compact KPI strip, chart-first grid, right-rail calendar, and lower secondary blocks.
+- Replaced top tab navigation with responsive app shell navigation (desktop sidebar, tablet icon rail, mobile drawer) and moved the scope notice to persistent sidebar footer.
+- Added honest KPI empty-state logic and tie-safe top emotion handling (`buildKpis`), plus tests for empty-state regressions (`lib/dashboard-kpi.test.ts`).
+- Added calendar-driven day sheet behavior (read existing / create past day), new dashboard implementation notes in `docs/dashboard.md`, and `/about/scope` scope page.
+- Tightened dashboard density by reducing default card padding from `24px` to `20px`.
+
 ## 2026-04-29
 
 - Unified mood scale across UI to a canonical 1-5 model with shared helpers in `lib/mood.ts`.
