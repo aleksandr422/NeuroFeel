@@ -12,6 +12,7 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ t, entryCount, averageMood }: HeroSectionProps) {
+  // By Hakkobyan: default to a neutral preview when no mood history exists yet.
   const safeMood: Mood = averageMood ?? 3;
   return (
     <section className="relative overflow-hidden rounded-[2rem] border border-violet-100 bg-white px-6 py-12 shadow-xl shadow-violet-100/70 sm:px-10 lg:px-12">
@@ -50,6 +51,7 @@ export function HeroSection({ t, entryCount, averageMood }: HeroSectionProps) {
         </div>
 
         <div className="rounded-3xl border border-violet-100 bg-gradient-to-br from-white to-violet-50 p-6 shadow-xl">
+          {/* By Hakkobyan: this preview gives the landing page a quick "live product" feel. */}
           <div className="rounded-2xl border border-violet-100 bg-white p-4 shadow-sm">
             <div className="flex items-center justify-between">
               <p className="text-sm font-semibold text-violet-700">{t.heroPreviewTitle}</p>

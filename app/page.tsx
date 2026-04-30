@@ -12,6 +12,7 @@ import { useLanguage } from "@/lib/useLanguage";
 export default function Home() {
   const { t } = useLanguage();
   const router = useRouter();
+  // By Hakkobyan: keep authenticated visitors on the in-app experience.
   const authenticated = typeof window !== "undefined" && isAuthenticated();
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Home() {
       </header>
       <main className="mx-auto max-w-6xl space-y-8 px-4 py-10">
         <Card>
+          {/* By Hakkobyan: concise hero content keeps the first visit focused. */}
           <h1 className="text-4xl font-bold">{t.heroTitleStart} <span className="bg-gradient-to-r from-[var(--color-primary-500)] to-[var(--color-primary-600)] bg-clip-text text-transparent">{t.heroTitleHighlight}</span></h1>
           <p className="mt-3 text-[var(--color-text-muted)]">{t.heroSubtitle}</p>
           <div className="mt-5"><Button variant="primary" onClick={() => { setAuthenticated(true); router.push("/app"); }}>{t.startFree}</Button></div>

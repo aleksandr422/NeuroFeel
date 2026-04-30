@@ -7,6 +7,7 @@ export function Footer({ t }: { t: HomeTranslation }) {
     <footer id="faq" className="rounded-3xl border border-violet-100 bg-white px-6 py-8 shadow-sm">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
+          {/* By Hakkobyan: footer stays intentionally compact to avoid competing with the CTA above. */}
           <p className="text-lg font-bold text-slate-900">MindDiary</p>
           <p className="text-sm text-slate-500">{t.footerTagline}</p>
         </div>
