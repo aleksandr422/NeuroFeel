@@ -2,7 +2,7 @@ import { execSync } from "node:child_process";
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
 
-const OUTPUT_DIR = join(process.cwd(), "tests", "visual");
+const OUTPUT_DIR = join(process.cwd(), "tests", "visual", "dashboard");
 const widths = [1440, 1280, 1024, 900, 768, 414];
 const storageStatePath = join(process.cwd(), "tests", "visual", "storage-state.json");
 
