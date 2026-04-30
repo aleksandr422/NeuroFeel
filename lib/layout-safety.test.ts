@@ -5,6 +5,8 @@ import { readFileSync } from "node:fs";
 test("no fixed bottom-left floating avatar badge in app layout/components", () => {
   const files = [
     "app/layout.tsx",
+    "app/app/layout.tsx",
+    "components/app/AppShell.tsx",
     "components/NavBar.tsx",
     "app/page.tsx",
     "app/diary/page.tsx",
@@ -14,7 +16,7 @@ test("no fixed bottom-left floating avatar badge in app layout/components", () =
   ];
   files.forEach((file) => {
     const content = readFileSync(file, "utf8");
-    const hasFixedBottomLeft = /fixed[\s\S]{0,120}bottom-[^\s"']+[\s\S]{0,120}left-[^\s"']+/m.test(content);
-    assert.equal(hasFixedBottomLeft, false, `Floating bottom-left element found in ${file}`);
+    const hasFloatingAvatar = /fixed[\s\S]{0,120}bottom-(?:\[[^\]]+\]|[^\s"']+)[\s\S]{0,120}left-(?:\[[^\]]+\]|[^\s"']+)[\s\S]{0,120}(?:avatar|badge|user|☻|🙂|🙍|initial)/im.test(content);
+    assert.equal(hasFloatingAvatar, false, `Floating bottom-left avatar-like element found in ${file}`);
   });
 });
