@@ -23,12 +23,14 @@ export function DiaryInput({
   onEntryAdded,
   onEntryUpdated,
   initialText,
+  initialDate,
   onDone,
 }: {
   editingEntry: DiaryEntry | null;
   onEntryAdded: (entry: DiaryEntry) => void;
   onEntryUpdated: (entry: DiaryEntry) => void;
   initialText?: string;
+  initialDate?: string;
   onDone?: () => void;
 }) {
   const [text, setText] = useState(editingEntry?.text ?? initialText ?? "");
@@ -119,7 +121,7 @@ export function DiaryInput({
         const entry: DiaryEntry = {
           id: crypto.randomUUID(),
           version: 2,
-          date: new Date().toISOString(),
+          date: initialDate ? new Date(`${initialDate}T12:00:00`).toISOString() : new Date().toISOString(),
           text,
           manualMood: moodValueToLegacyMood(manualMood),
           energy,

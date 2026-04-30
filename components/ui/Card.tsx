@@ -20,7 +20,7 @@ export function Card({
       : tone === "muted"
         ? "border border-[var(--color-border)] bg-[var(--color-surface-muted)] text-[var(--color-text)] shadow-[var(--shadow-card)]"
         : "border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-[var(--shadow-card)]";
-  const padClass = padding === "sm" ? "p-4" : padding === "lg" ? "p-8" : "p-6";
+  const padClass = padding === "sm" ? "p-4" : padding === "lg" ? "p-8" : "p-5";
 
   return <div {...props} className={cn("rounded-[var(--radius-lg)]", toneClass, padClass, className)} />;
 }
