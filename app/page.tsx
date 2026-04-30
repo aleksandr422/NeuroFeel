@@ -12,7 +12,6 @@ import { useLanguage } from "@/lib/useLanguage";
 export default function Home() {
   const { t } = useLanguage();
   const router = useRouter();
-  // By Hakkobyan: keep authenticated visitors on the in-app experience.
   const authenticated = typeof window !== "undefined" && isAuthenticated();
 
   useEffect(() => {
@@ -21,6 +20,7 @@ export default function Home() {
     }
   }, [authenticated, router]);
 
+  if (typeof window === "undefined") return null;
   if (authenticated) return null;
 
   return (
