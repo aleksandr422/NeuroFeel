@@ -1,0 +1,15 @@
+<!-- // TODO: Replace with final brain illustration from designer -->
+<svg width="280" height="280" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="brainGradientHero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6d5ef5" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.25" />
+    </linearGradient>
+  </defs>
+  <circle cx="140" cy="140" r="92" fill="none" stroke="#eeeaff" stroke-width="2" />
+  <ellipse cx="140" cy="146" rx="68" ry="58" fill="url(#brainGradientHero)" />
+  <path d="M120 112c-8 8-8 20 0 28m0 0c8 8 8 20 0 28m40-56c8 8 8 20 0 28m0 0c-8 8-8 20 0 28m-20-72v72" stroke="#6d5ef5" stroke-opacity="0.6" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="72" cy="92" r="14" fill="#fff" stroke="#e7e3ff" />
+  <circle cx="86" cy="186" r="14" fill="#fff" stroke="#e7e3ff" />
+  <circle cx="206" cy="186" r="14" fill="#fff" stroke="#e7e3ff" />
+</svg>
