@@ -1,0 +1,22 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "minddiary.auth.isAuthenticated",
+          "value": "1"
+        },
+        {
+          "name": "app-language",
+          "value": "ru"
+        },
+        {
+          "name": "ai-mood-diary-entries-v1",
+          "value": "[{\"id\":\"e1\",\"version\":2,\"date\":\"2026-04-30T10:00:00.000Z\",\"text\":\"Сегодня было спокойно, успела на прогулку и немного отдохнула вечером.\",\"mood\":\"happy\",\"manualMood\":\"happy\",\"emotions\":[\"calm\"],\"problem\":\"\",\"advice\":\"\",\"tags\":[\"walking\"],\"tagConfidences\":[0.9],\"energy\":4,\"isEdited\":false},{\"id\":\"e2\",\"version\":2,\"date\":\"2026-04-29T10:00:00.000Z\",\"text\":\"ромпгмглмгщм ромпгмглмгщм\",\"mood\":\"happy\",\"manualMood\":\"neutral\",\"emotions\":[\"joy\"],\"problem\":\"workload\",\"advice\":\"\",\"tags\":[\"work\"],\"tagConfidences\":[0.9],\"energy\":3,\"isEdited\":false},{\"id\":\"e3\",\"version\":2,\"date\":\"2026-04-28T10:00:00.000Z\",\"text\":\"День был напряженный, но разговор с другом помог снизить тревогу.\",\"mood\":\"anxious\",\"manualMood\":\"anxious\",\"emotions\":[\"anxiety\"],\"problem\":\"stress\",\"advice\":\"\",\"tags\":[\"stress\"],\"tagConfidences\":[0.8],\"energy\":2,\"isEdited\":false}]"
+        }
+      ]
+    }
+  ]
+}
