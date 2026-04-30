@@ -1,0 +1,11 @@
+<!-- // TODO: Replace with final brain illustration from designer -->
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="brainGradientObservation" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6d5ef5" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.25" />
+    </linearGradient>
+  </defs>
+  <ellipse cx="60" cy="64" rx="34" ry="28" fill="url(#brainGradientObservation)" />
+  <path d="M50 48c-4 4-4 10 0 14m0 0c4 4 4 10 0 14m20-28c4 4 4 10 0 14m0 0c-4 4-4 10 0 14m-10-36v36" stroke="#6d5ef5" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
+</svg>
