@@ -5,6 +5,7 @@ import { DiaryEntry } from "@/lib/types";
 import { getLocalizedEntry } from "@/lib/localize";
 import { useLanguage } from "@/lib/useLanguage";
 import { Tag } from "@/components/ui/Tag";
+import { isLikelyMeaningful } from "@/lib/validation";
 
 export function EntryList({
   entries,
@@ -41,6 +42,7 @@ export function EntryList({
     <section ref={containerRef} className="space-y-3">
       {entries.map((entry) => {
         const localized = getLocalizedEntry(entry, language);
+        const meaningful = isLikelyMeaningful(entry.text, language);
         return (
           <article key={entry.id} className="relative rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
           <button
@@ -86,8 +88,8 @@ export function EntryList({
           </p>
           <p className="mt-2 text-sm text-slate-700">{entry.text}</p>
           <div className="mt-2 flex flex-wrap gap-2 text-xs">
-            <Tag tone="primary-soft">{t.moodPrefix}: {localized.moodLabel}</Tag>
-            {localized.tagLabels
+            <Tag tone="primary-soft">{t.moodPrefix}: {meaningful ? localized.moodLabel : "—"}</Tag>
+            {(meaningful ? localized.tagLabels : [])
               .map((tag, index) => ({ tag, index }))
               .filter((item) => (entry.tagConfidences?.[item.index] ?? 1) >= 0.6)
               .map((item) => (
