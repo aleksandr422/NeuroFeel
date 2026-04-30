@@ -61,6 +61,10 @@ export default function AppDashboardPage() {
       energy: getEnergyForDay(entries, point.key),
     };
   });
+  const streakValue = Number(kpis.streak.value);
+  const deltaCaption = kpis.delta.value === "—" ? "Нужна ещё одна неделя данных" : "по сравнению с прошлой неделей";
+  const streakCaption = streakValue < 3 ? "запишите 3 дня подряд, чтобы начать серию" : "дней подряд";
+  const observationText = summary.suggestion ?? "Сделайте ещё несколько записей, чтобы появились наблюдения.";
 
   return (
     <div className="mx-auto w-full max-w-[1280px] space-y-4 px-6 pb-8 pt-6 md:px-8">
@@ -130,9 +134,9 @@ export default function AppDashboardPage() {
 
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         <KpiCard title="Среднее настроение" value={kpis.avgMood.value} caption={kpis.avgMood.caption} progress={kpis.avgMood.progress} />
-        <KpiCard title="Изменение за неделю" value={kpis.delta.value} caption={kpis.delta.value === "—" ? "Нужна ещё одна неделя данных" : "по сравнению с прошлой неделей"} progress={kpis.delta.value === "—" ? 0 : kpis.delta.progress} />
+        <KpiCard title="Изменение за неделю" value={kpis.delta.value} caption={deltaCaption} progress={kpis.delta.value === "—" ? 0 : kpis.delta.progress} />
         <KpiCard title="Самая частая эмоция" value={kpis.emotion.value} caption={kpis.emotion.caption} progress={kpis.emotion.value === "—" ? 0 : kpis.emotion.progress} emoji={kpis.emotion.value === "Несколько" ? "🙂" : undefined} />
-        <KpiCard title="Серия дней" value={kpis.streak.value} caption={kpis.streak.value === "0" || Number(kpis.streak.value) < 3 ? "запишите 3 дня подряд, чтобы начать серию" : "дней подряд"} progress={Number(kpis.streak.value) < 3 ? Math.max(0, Number(kpis.streak.value) / 3) : kpis.streak.progress} />
+        <KpiCard title="Серия дней" value={kpis.streak.value} caption={streakCaption} progress={streakValue < 3 ? Math.max(0, streakValue / 3) : kpis.streak.progress} />
       </section>
 
       <section className="grid grid-cols-1 gap-4 lg:grid-cols-12">
@@ -175,7 +179,7 @@ export default function AppDashboardPage() {
         <Card className="min-w-0 lg:col-span-4" padding="md">
           <h3 className="text-[var(--fs-base)] font-[var(--fw-semibold)] text-[var(--color-text)]">Наблюдение за последние 30 дней</h3>
           <p className="mt-3 text-[var(--fs-sm)] leading-[1.6] text-[var(--color-text-muted)]">
-            {summary.suggestion ?? "Сделайте ещё несколько записей, чтобы появились наблюдения."}
+            {observationText}
           </p>
           <div className="mt-4 flex justify-center">
             <Image src="/assets/observation-brain.svg" alt="" aria-hidden width={120} height={120} className="h-[120px] w-[120px]" />
